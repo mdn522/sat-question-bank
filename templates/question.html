@@ -92,12 +92,12 @@
                 {% endif %} 
             {% endif %} 
 
-            <a class="border rounded-xl bg-blue-300 hover:bg-blue-400 px-4 py-2 cursor-pointer select-none mt-8 inline-block" @click="toggleAnswer()">Toggle Answer</a>
+            <a class="border rounded-xl bg-blue-300 hover:bg-blue-400 px-4 py-2 cursor-pointer select-none mt-8 inline-block duration-150 transition-colors" @click="toggleAnswer()">Toggle Answer</a>
             <br>
             <span class="text-slate-600 text-sm">Tip: Press CTRL/Command to toggle answer</span>
         </div>
 
-        <div class="answer-content" style="font-family: Roboto, sans-serif">
+        <div class="answer-content transition-opacity duration-75" style="font-family: Roboto, sans-serif">
             <div class="">
                 <span class="font-bold">Correct Answer: </span>
                 <span>{{ question.content.correct_answer | join(",&nbsp; ") | safe }}</span>
@@ -136,7 +136,7 @@
 <div class="fixed right-2 bottom-4">
     <span class="bg-green-100 rounded-xl p-2 mr-5">{{ current_question_number }} / {{ questions_count }}</span>
     {% if next_question_id %}
-    	<a class="bg-red-100 rounded-xl p-2 cursor-pointer" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
+    	<a class="bg-red-100 hover:bg-red-200 rounded-xl p-2 px-3 cursor-pointer duration-150 transition-colors" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
     {% endif %}
 
 </div>

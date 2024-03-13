@@ -9,13 +9,13 @@
 <div class="container mx-auto px-2" x-data>
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
         <div>
-            <div class="text-4xl">Reading and Writing ({{ module_count['english'] }})</div>
+            <div class="text-4xl font-semibold">Reading and Writing ({{ module_count['english'] }})</div>
             {% for category in categories.values() if category.module == 'english' %}
                 {% include 'includes/category.html' %}
             {% endfor %}
         </div>
         <div>
-            <div class="text-4xl">Math ({{ module_count['math'] }})</div>
+            <div class="text-4xl font-semibold">Math ({{ module_count['math'] }})</div>
 
             {% for category in categories.values() if category.module == 'math' %}
                 {% include 'includes/category.html' %}
