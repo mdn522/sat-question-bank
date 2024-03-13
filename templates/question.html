@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}SAT Suite Question Bank{% endblock %}
+
+{% block content %}
+
+<style>
+    .answer-content {
+        opacity: 0;
+    }
+
+    .answer-content.show {
+        opacity: 1;
+    }
+
+    .question table {
+        border: 1px solid;
+    }
+
+    .question table tr th {
+        border: 1px solid;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .question table tr td {
+        border: 1px solid;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+
+{% include 'includes/header.html' %}
+
+<div class="container mx-auto" x-data>
+    
+    <div class="grid grid-cols-4 gap-16">
+        <div>
+            <span class="text-blue-700 font-bold text-lg">Test</span><br><span x-text="{'english': 'Reading and Writing', 'math': 'Math'}[question.module]"></span>
+        </div>
+        <div><span class="text-blue-700 font-bold text-lg">Domain</span><br><span class="{% if question.primary_class_cd == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.primary_class_cd_desc"></span></div>
+        <div><span class="text-blue-700 font-bold text-lg">Skill</span><br><span class="{% if (question.primary_class_cd + '-' + question.skill_cd) == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.skill_desc"></span></div>
+        <div>
+            <span class="text-blue-700 font-bold text-lg">Difficulty</span><br><span x-text="{'E': 'Easy', 'M': 'Medium', 'H': 'Hard'}[question.difficulty]"></span>
+        </div>
+    </div>
+    
+    <div class="my-6"></div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 px-2 gap-16 hidden question" id="mathjax-wait">
+        <div style="font-family: Roboto, sans-serif">
+
+            <div class="px-8 py-2 text-white bg-blue-700 inline-block" x-text="'ID: ' + question.questionId"></div>
+
+            <div class="my-2"></div>
+
+            {% if question.content.stimulus %}
+            	<div>{{ question.content.stimulus | safe }}</div>
+            {% endif %}
+
+            {% if question.content.stem %}
+            	<div class="mt-3">{{ question.content.stem | safe }}</div>
+            {% endif %}
+
+            {% if question.content.prompt %}
+            	<div class="mt-3">{{ question.content.prompt | safe }}</div>
+            {% endif %}
+
+
+            <div class="my-3"></div>
+
+            {% if question.content.type == 'mcq' %}
+            	<ol class="list-[upper-alpha] ml-8">
+                    {% for ans in question.content.answerOptions %}
+            	        <li class="p-2 border mb-2 rounded" @click="">{{ ans.content | safe }}</li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            {% if question.content.type == 'spr' %}
+
+            {% endif %}
+            {% if question.content.answer %}
+            	{% if question.content.answer.style == 'Multiple Choice' %}
+            		<ol class="list-[upper-alpha] ml-8">
+                        {% for ansLetter, ans in question.content.answer.choices.items() %}
+                            <li class="p-2 border mb-2 rounded" @click="">{{ ans.body | safe }}</li>
+                        {% endfor %}
+                    </ol>
+            	{% endif %}
+                {% if question.content.answer.style == 'SPR' %}
+                	
+                {% endif %} 
+            {% endif %} 
+
+            <a class="border rounded-xl bg-blue-300 hover:bg-blue-400 px-4 py-2 cursor-pointer select-none mt-8 inline-block" @click="toggleAnswer()">Toggle Answer</a>
+            <br>
+            <span class="text-slate-600 text-sm">Tip: Press CTRL/Command to toggle answer</span>
+        </div>
+
+        <div class="answer-content" style="font-family: Roboto, sans-serif">
+            <div class="">
+                <span class="font-bold">Correct Answer: </span>
+                <span>{{ question.content.correct_answer | join(",&nbsp; ") | safe }}</span>
+                {% if question.content.answer %}
+                    {% if question.content.answer.choices %}
+                    	<span>{{ question.content.answer.correct_choice | upper }}</span>
+                    {% endif %}
+                    {% if question.content.answer.choicess %}
+                    	<span>{{ question.content.answer.correct_answer | join(",&nbsp; ") | safe }}</span>
+                    {% endif %}
+                {% endif %}
+{#                <span x-text="JSON.stringify(question.content.correct_answer)"></span>#}
+            </div>
+            <div class="my-4"></div>
+
+            <div class="font-bold">Rationale</div>
+            <div class="">
+                {% if question.content.rationale %}
+                	{{ question.content.rationale | safe }}
+                {% endif %}
+                {% if question.content.answer %}
+                    {{ question.content.answer.rationale | safe }}
+                {% endif %}
+            </div>
+
+            <div class="my-4"></div>
+
+            <div class="">
+                <span class="font-bold">Question Difficulty: </span>
+                <span x-text="{'E': 'Easy', 'M': 'Medium', 'H': 'Hard'}[question.difficulty]"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fixed right-2 bottom-4">
+    <span class="bg-green-100 rounded-xl p-2 mr-5">{{ current_question_number }} / {{ questions_count }}</span>
+    {% if next_question_id %}
+    	<a class="bg-red-100 rounded-xl p-2 cursor-pointer" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
+    {% endif %}
+
+</div>
+
+
+<script>
+    let question = {{question | tojson | safe}};
+
+    function toggleAnswer() {
+        let els = document.getElementsByClassName('answer-content');
+        if (els.length >= 1) {
+            els[0].classList.toggle('show');
+        }
+    }
+    document.addEventListener("keyup", function (event) {
+        if (event.key == "Control" || event.metaKey) {
+            toggleAnswer()
+        }
+    });
+</script>
+
+{% endblock %}

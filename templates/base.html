@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <style>
+        img {
+            display: inline-block !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+
+</head>
+<body>
+    {% block content %}{% endblock %}
+
+    <div class="mt-5 mb-1 text-center text-slate-500">Questions are sourced from <a class="underline" href="https://satsuitequestionbank.collegeboard.org/" target="_blank">College Board SAT Question Bank</a></div>
+
+    <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    <script>
+        window.MathJax = {
+            startup: {
+                ready: () => {
+                    console.log('MathJax is loaded, but not yet initialized');
+                    MathJax.startup.defaultReady();
+                    MathJax.typeset();
+                    document.getElementById('mathjax-wait').classList.remove('hidden');
+                    console.log('MathJax is initialized, and the initial typeset is queued');
+                }
+            }
+        };
+    </script>
+</body>
+</html>
