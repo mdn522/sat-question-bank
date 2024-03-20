@@ -34,7 +34,7 @@
 
 <div class="container mx-auto" x-data>
     
-    <div class="grid grid-cols-4 gap-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-y-3">
         <div>
             <span class="text-blue-700 font-bold text-lg">Test</span><br><span x-text="{'english': 'Reading and Writing', 'math': 'Math'}[question.module]"></span>
         </div>
@@ -141,7 +141,7 @@
 <div class="fixed right-2 bottom-4">
     <span class="bg-green-100 rounded-xl p-2 mr-5">{{ current_question_number }} / {{ questions_count }}</span>
     {% if next_question_id %}
-    	<a class="bg-red-100 hover:bg-red-200 rounded-xl p-2 px-3 cursor-pointer duration-150 transition-colors" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
+    	<a class="bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl p-2 px-3 cursor-pointer duration-150 transition-colors" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
     {% endif %}
 
 </div>
