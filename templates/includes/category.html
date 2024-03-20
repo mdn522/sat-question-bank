@@ -8,7 +8,6 @@
             <a class="bg-blue-100 hover:bg-blue-200 flex duration-150 transition-colors" href="/question/{{ category.id + '-' + subcategory.id }}/{{ categories_first_question_id[category.id + '-' + subcategory.id] }}">
                 <span class="w-20 text-3xl leading-8 flex items-center justify-center h-16">{{ subcategory.count }}</span>
                 <span class="flex items-center justify-center h-16">{{ subcategory.name }}</span>
-{#                    px-4 py-2#}
             </a>
         {% endfor %}
     </div>

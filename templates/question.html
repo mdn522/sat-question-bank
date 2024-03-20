@@ -52,7 +52,7 @@
 
             <div class="px-8 py-2 text-white bg-blue-700 inline-block" x-text="'ID: ' + question.questionId"></div>
 
-            <div class="my-2"></div>
+            <div class="my-6"></div>
 
             {% if question.content.stimulus %}
             	<div>{{ question.content.stimulus | safe }}</div>
@@ -70,7 +70,6 @@
             	<div class="mt-3">{{ question.content.prompt | safe }}</div>
             {% endif %}
 
-
             <div class="my-3"></div>
 
             {% if question.content.type == 'mcq' %}
@@ -80,9 +79,11 @@
                     {% endfor %}
                 </ol>
             {% endif %}
+
             {% if question.content.type == 'spr' %}
 
             {% endif %}
+
             {% if question.content.answer %}
             	{% if question.content.answer.style == 'Multiple Choice' %}
             		<ol class="list-[upper-alpha] ml-8">
@@ -144,7 +145,6 @@
     {% endif %}
 
 </div>
-
 
 <script>
     let question = {{question | tojson | safe}};
