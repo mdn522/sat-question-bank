@@ -121,6 +121,8 @@ def question_cat_page(category, question_id):
 
     questions_id: List[List[str, str]] = categories_questions_id[category]
 
+    print(questions_id)
+
     question_index = [d[0] for d in questions_id].index(question_id)
     next_question_id = None
     if question_index < len(questions_id) - 1:
@@ -135,5 +137,6 @@ def question_cat_page(category, question_id):
        next_question_id=next_question_id,
        questions_count=questions_count,
        current_question_number=current_question_number,
+       questions_id=[[i + 1, q[1], questions[q[0]]['difficulty']] for i, q in enumerate(questions_id)],
        category=category,
     )
