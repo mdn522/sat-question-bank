@@ -41,7 +41,7 @@ def skill_list():
 
 
 def get_key(
-        module: str,
+        module: Optional[str],
         group: Optional[str] = None,
         skill: Optional[str] = None,
         difficulty: Optional[Union[str, List[str]]] = None,
