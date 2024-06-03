@@ -212,12 +212,12 @@ def question_page(q_filter, question_id):
 
     questions_id: List[Tuple[str, str]] = get_questions_id(q_filter)
 
-    print(q_filter, question_id, len(questions_id), questions_id)
+    # print(q_filter, question_id, len(questions_id), questions_id)
 
     try:
         question_index = [d[0] for d in questions_id].index(question_id)
     except ValueError:
-        print('Question not found in filter', question_id, q_filter)
+        # print('Question not found in filter', question_id, q_filter)
         question_index = None
 
     next_question_id = None

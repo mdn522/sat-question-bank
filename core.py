@@ -138,7 +138,7 @@ def parse_key(key: str) -> Dict[str, Any]:
         if filter_k == 'active' and filter_v in ['bluebook', 'non']:
             filter_dict[filter_k] = {'bluebook': 1, 'non': 0}[filter_v]
 
-    print('filter_dict', filter_dict)
+    # print('filter_dict', filter_dict)
     return filter_dict
 
 
