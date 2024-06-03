@@ -37,7 +37,6 @@
     }
 
     .question ol {
-        {#list-style: decimal;#}
         padding-left: 40px;
         margin-top: 16px;
         margin-bottom: 16px;
@@ -50,12 +49,12 @@
     
     <div class="grid grid-cols-2 md:grid-cols-4 gap-y-16 gap-y-3">
         <div>
-            <span class="text-blue-700 font-bold text-lg">Test</span><br><span x-text="{'english': 'Reading and Writing', 'math': 'Math'}[question.module]"></span>
+            <span class="text-orange-700 font-bold text-lg">Test</span><br><span x-text="{'english': 'Reading and Writing', 'math': 'Math'}[question.module]"></span>
         </div>
-        <div><span class="text-blue-700 font-bold text-lg">Domain</span><br><span class="{% if question.primary_class_cd == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.primary_class_cd_desc"></span></div>
-        <div><span class="text-blue-700 font-bold text-lg">Skill</span><br><span class="{% if (question.primary_class_cd + '-' + question.skill_cd) == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.skill_desc"></span></div>
+        <div><span class="text-orange-700 font-bold text-lg">Domain</span><br><span class="{% if question.primary_class_cd == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.primary_class_cd_desc"></span></div>
+        <div><span class="text-orange-700 font-bold text-lg">Skill</span><br><span class="{% if (question.primary_class_cd + '-' + question.skill_cd) == category %}px-2 py-1 bg-blue-100 rounded{% endif %}" x-text="question.skill_desc"></span></div>
         <div>
-            <span class="text-blue-700 font-bold text-lg">Difficulty</span><br>
+            <span class="text-orange-700 font-bold text-lg">Difficulty</span><br>
             <span x-text="{'E': 'Easy', 'M': 'Medium', 'H': 'Hard'}[question.difficulty]" class="px-2 py-1 rounded" :class="{'E': 'bg-green-200', 'M': 'bg-orange-100', 'H': 'bg-red-200'}[question.difficulty]"></span>
         </div>
     </div>
@@ -67,7 +66,7 @@
             <div class="">
                 <div class="answer px-[2rem] py-[2rem] mx-[-2rem] my-[-2rem]">
                     <div class="flex flex-wrap gap-2">
-                        <div class="px-8 py-2 text-white bg-blue-700 inline-block" x-text="'ID: ' + question.questionId"></div>
+                        <div class="px-8 py-2 text-white bg-orange-700 inline-block" x-text="'ID: ' + question.questionId"></div>
                         <div class="px-2 py-2 bg-slate-50 text-slate-300 inline-block text-sm flex items-center">
                             <span>Modded SAT Question Bank by Abdullah Mallik</span>
                         </div>
@@ -123,7 +122,7 @@
             </div>
 
             <div class="mt-8">
-                <a class="border rounded-xl bg-blue-300 hover:bg-blue-400 px-4 py-2 cursor-pointer select-none inline-block duration-150 transition-colors" @click="toggleAnswer()">Toggle Answer</a>
+                <a class="border rounded-xl bg-orange-300 hover:bg-orange-400 px-4 py-2 cursor-pointer select-none inline-block duration-150 transition-colors" @click="toggleAnswer()">Toggle Answer</a>
 {#                <a class="border bg-green-100 hover:bg-green-400 rounded-xl p-2 mr-3 px-4 cursor-pointer select-none inline-block duration-150 transition-colors"  onclick="downloadQuestion();">#}
 {#                    Download/Copy#}
 {#                </a>#}
@@ -172,9 +171,9 @@
     <div class="mt-4 mb-14">
         <div class="flex flex-wrap space-x-1 space-y-1">
             {% for q in questions_id %}
-                <a class="px-2 py-1 border border-b-4 ml-1 mt-1 rounded cursor-pointer duration-150 transition-colors hover:bg-blue-100 text-blue-700 {% if current_question_number == q[0] %}bg-blue-100{% endif %}
+                <a class="px-2 py-1 border border-b-4 ml-1 mt-1 rounded cursor-pointer duration-150 transition-colors hover:bg-orange-100 text-orange-700 {% if current_question_number == q[0] %}bg-blue-100{% endif %}
                           {% if q[2] == "E" %}border-b-green-500{% endif %} {% if q[2] == "M" %}border-b-orange-400{% endif %} {% if q[2] == "H" %}border-b-red-500{% endif %}"
-                   {% if current_question_number != q[0] %}href="/question/{{ category }}/{{ q[1] }}"{% endif %}>{{ q[0] }}</a>
+                   {% if current_question_number != q[0] %}href="/question/{{ get_key(**filter_dict) }}/{{ q[1] }}"{% endif %}>{{ q[0] }}</a>
             {% endfor %}
         </div>
     </div>
@@ -183,7 +182,7 @@
 <div class="fixed right-2 bottom-4">
     <span class="bg-green-100 rounded-xl p-2 mr-5">{{ current_question_number }} / {{ questions_count }}</span>
     {% if next_question_id %}
-    	<a class="bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl p-2 px-3 cursor-pointer duration-150 transition-colors" href="/question/{{ category }}/{{ next_question_id }}">Next</a>
+    	<a class="bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl p-2 px-3 cursor-pointer duration-150 transition-colors" href="/question/{{ get_key(**filter_dict) }}/{{ next_question_id }}">Next</a>
     {% endif %}
 </div>
 
@@ -232,7 +231,6 @@
 
         });
     }
-
 
     </script>
 

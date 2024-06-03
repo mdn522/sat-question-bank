@@ -1,13 +1,15 @@
 <div class="my-4">
-    <a class="text-3xl leading-10 block bg-blue-500 hover:bg-blue-600 text-white flex items-center duration-150 transition-colors" href="/question/{{ category.id }}/{{ categories_first_question_id[category.id] }}">
-        <span class="w-20 text-3xl leading-8 flex items-center justify-center h-full">{{ category.count }}</span>
-        <span class="flex items-center justify-center min-h-16">{{ category.name }}</span>
+    <a class="text-3xl leading-10 block bg-orange-500 hover:bg-orange-600 text-white flex items-center duration-150 transition-colors"
+       href="/question/{{ get_key(module=category.module, group=category.group, **filter_dict) }}/{{ category.group_first_question_id }}">
+        <span class="w-20 text-3xl leading-8 flex items-center justify-center h-full">{{ category.group_count }}</span>
+        <span class="flex items-center justify-center min-h-16">{{ terms[category.group] }}</span>
     </a>
     <div class="flex flex-col flex-wrap">
-        {% for subcategory in category.categories.values() %}
-            <a class="bg-blue-100 hover:bg-blue-200 flex duration-150 transition-colors" href="/question/{{ category.id + '-' + subcategory.id }}/{{ categories_first_question_id[category.id + '-' + subcategory.id] }}">
-                <span class="w-20 text-3xl leading-8 flex items-center justify-center h-16">{{ subcategory.count }}</span>
-                <span class="flex items-center justify-center h-16">{{ subcategory.name }}</span>
+        {% for subcategory in categories if subcategory.group == category.group %}
+            <a class="bg-orange-100 hover:bg-orange-200 flex duration-150 transition-colors"
+               href="/question/{{ get_key(module=subcategory.module, group=subcategory.group, skill=subcategory.skill, **filter_dict) }}/{{ subcategory.skill_first_question_id }}">
+                <span class="w-20 text-3xl leading-8 flex items-center justify-center h-16">{{ subcategory.skill_count }}</span>
+                <span class="flex items-center justify-center h-16">{{ terms[subcategory.skill] }}</span>
             </a>
         {% endfor %}
     </div>

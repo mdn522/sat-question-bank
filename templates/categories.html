@@ -1,24 +1,61 @@
 {% extends "base.html" %}
 
-{% block title %}SAT Suite Question Bank - Categories{% endblock %}
+{% block title %}SAT Suite Question Bank{% endblock %}
 
 {% block content %}
 
 {% include 'includes/header.html' %}
 
 <div class="container mx-auto px-2" x-data>
+    <div class="flex mb-3 items-center text-sm border border-orange-100 p-2 font-bold flex-wrap pb-0">
+        <div class="flex items-center space-x-1 mr-8 mb-2">
+            <span class="mr-2">Filter:</span>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'active' not in filter_dict %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(active=None) }}">All</a>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if filter_dict.active == 1 %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(active='bluebook') }}">Bluebook Only</a>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if filter_dict.active == 0 %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(active='non') }}">Exclude Bluebook</a>
+        </div>
+        <div class="flex items-center space-x-1 mb-2">
+            <span class="mr-2">Difficulty:</span>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'difficulty' not in filter_dict %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(difficulty=None) }}">All</a>
+
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'E' in filter_dict.difficulty %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(difficulty='E') }}">Easy</a>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'M' in filter_dict.difficulty %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(difficulty='M') }}">Medium</a>
+            <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'H' in filter_dict.difficulty %}bg-orange-500 text-white{% endif %}"
+               href="/categories/{{ cat_get_key(difficulty='H') }}">Hard</a>
+        </div>
+    </div>
+
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
         <div>
-            <div class="text-4xl font-semibold">Reading and Writing ({{ module_count['english'] }})</div>
-            {% for category in categories.values() if category.module == 'english' %}
+{#            <div class="text-4xl font-semibold">Reading and Writing ({{ module_count['english'] }})</div>#}
+            <a class="text-4xl leading-10 block bg-orange-600 hover:bg-orange-700 text-white flex items-center duration-150 transition-colors"
+               href="/question/{{ get_key(module='english', **filter_dict) }}/{{ module_first_question_id['english'] }}">
+                <span class="w-24 text-4xl leading-8 flex items-center justify-center h-full">{{ module_count['english'] }}</span>
+                <span class="flex items-center justify-center min-h-16">Reading and Writing</span>
+            </a>
+            {% set group = [] %}
+            {% for category in categories if category.module == 'english' and category.group not in group %}
                 {% include 'includes/category.html' %}
+                {{ group.append(category.group) or '' }}
             {% endfor %}
         </div>
         <div>
-            <div class="text-4xl font-semibold">Math ({{ module_count['math'] }})</div>
-
-            {% for category in categories.values() if category.module == 'math' %}
+{#            <div class="text-4xl font-semibold">Math ({{ module_count['math'] }})</div>#}
+            <a class="text-4xl leading-10 block bg-orange-600 hover:bg-orange-700 text-white flex items-center duration-150 transition-colors"
+               href="/question/{{ get_key(module='math', **filter_dict) }}/{{ module_first_question_id['math'] }}">
+                <span class="w-24 text-4xl leading-8 flex items-center justify-center h-full">{{ module_count['math'] }}</span>
+                <span class="flex items-center justify-center min-h-16">Math</span>
+            </a>
+            {% set group = [] %}
+            {% for category in categories if category.module == 'math' and category.group not in group %}
                 {% include 'includes/category.html' %}
+                {{ group.append(category.group) or '' }}
             {% endfor %}
         </div>
     </div>
@@ -27,6 +64,7 @@
     <div class="mt-12 mb-1 text-center text-slate-500">Questions are sourced from <a class="underline" href="https://satsuitequestionbank.collegeboard.org/" target="_blank">College Board SAT Question Bank</a></div>
 
 <script>
+    // TODO save bandwith
     let categories = {{categories | tojson | safe}};
 </script>
 
