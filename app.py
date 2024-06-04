@@ -243,36 +243,36 @@ def question_page(q_filter, question_id):
     )
 
 
-@app.route('/question/<category>/<question_id>')
-def question_cat_page(category, question_id):
-    if category not in categories_questions_id:
-        return "Category not found", 404
-
-    if question_id not in question_id_map:
-        return "Question not found", 404
-
-    question_id = question_id_map[question_id]
-    question = questions[question_id]
-
-    questions_id: List[List[str, str]] = categories_questions_id[category]
-
-    # print(questions_id)
-
-    question_index = [d[0] for d in questions_id].index(question_id)
-    next_question_id = None
-    if question_index < len(questions_id) - 1:
-        next_question_id = questions_id[question_index + 1][1]
-
-    # questions_count = categories[question['primary_class_cd']]['categories'][question['skill_cd']]['count']
-    questions_count = categories_counts[category]
-    current_question_number = question_index + 1
-
-    return render_template(
-        'question.html',
-        question=question,
-        next_question_id=next_question_id,
-        questions_count=questions_count,
-        current_question_number=current_question_number,
-        questions_id=[[i + 1, q[1], questions[q[0]]['difficulty']] for i, q in enumerate(questions_id)],
-        category=category,
-    )
+# @app.route('/question/<category>/<question_id>')
+# def question_cat_page(category, question_id):
+#     if category not in categories_questions_id:
+#         return "Category not found", 404
+#
+#     if question_id not in question_id_map:
+#         return "Question not found", 404
+#
+#     question_id = question_id_map[question_id]
+#     question = questions[question_id]
+#
+#     questions_id: List[List[str, str]] = categories_questions_id[category]
+#
+#     # print(questions_id)
+#
+#     question_index = [d[0] for d in questions_id].index(question_id)
+#     next_question_id = None
+#     if question_index < len(questions_id) - 1:
+#         next_question_id = questions_id[question_index + 1][1]
+#
+#     # questions_count = categories[question['primary_class_cd']]['categories'][question['skill_cd']]['count']
+#     questions_count = categories_counts[category]
+#     current_question_number = question_index + 1
+#
+#     return render_template(
+#         'question.html',
+#         question=question,
+#         next_question_id=next_question_id,
+#         questions_count=questions_count,
+#         current_question_number=current_question_number,
+#         questions_id=[[i + 1, q[1], questions[q[0]]['difficulty']] for i, q in enumerate(questions_id)],
+#         category=category,
+#     )
