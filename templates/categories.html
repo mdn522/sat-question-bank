@@ -34,7 +34,7 @@
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2">
         <div>
 {#            <div class="text-4xl font-semibold">Reading and Writing ({{ module_count['english'] }})</div>#}
-            <a class="text-4xl leading-10 block bg-orange-600 hover:bg-orange-700 text-white flex items-center duration-150 transition-colors"
+            <a class="text-4xl leading-10 block bg-orange-500 hover:bg-orange-600 text-white flex items-center duration-150 transition-colors"
                href="/question/{{ get_key(module='english', **filter_dict) }}/{{ module_first_question_id['english'] }}">
                 <span class="w-24 text-4xl leading-8 flex items-center justify-center h-full">{{ module_count['english'] }}</span>
                 <span class="flex items-center justify-center min-h-16">Reading and Writing</span>
@@ -47,7 +47,7 @@
         </div>
         <div>
 {#            <div class="text-4xl font-semibold">Math ({{ module_count['math'] }})</div>#}
-            <a class="text-4xl leading-10 block bg-orange-600 hover:bg-orange-700 text-white flex items-center duration-150 transition-colors"
+            <a class="text-4xl leading-10 block bg-orange-500 hover:bg-orange-600 text-white flex items-center duration-150 transition-colors"
                href="/question/{{ get_key(module='math', **filter_dict) }}/{{ module_first_question_id['math'] }}">
                 <span class="w-24 text-4xl leading-8 flex items-center justify-center h-full">{{ module_count['math'] }}</span>
                 <span class="flex items-center justify-center min-h-16">Math</span>
