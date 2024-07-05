@@ -13,9 +13,9 @@
             <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if 'active' not in filter_dict %}bg-orange-500 text-white{% endif %}"
                href="/categories/{{ cat_get_key(active=None) }}">All</a>
             <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if filter_dict.active == 1 %}bg-orange-500 text-white{% endif %}"
-               href="/categories/{{ cat_get_key(active='bluebook') }}">Bluebook Only</a>
+               href="/categories/{{ cat_get_key(active='bluebook') }}">Bluebook Questions Only</a>
             <a class="px-2 py-1 border-2 border-orange-500 duration-150 transition-colors hover:bg-orange-500 hover:text-white {% if filter_dict.active == 0 %}bg-orange-500 text-white{% endif %}"
-               href="/categories/{{ cat_get_key(active='non') }}">Exclude Bluebook</a>
+               href="/categories/{{ cat_get_key(active='non') }}">Exclude Bluebook Questions</a>
         </div>
         <div class="flex items-center space-x-1 mb-2">
             <span class="mr-2">Difficulty:</span>
@@ -64,7 +64,7 @@
     <div class="mt-12 mb-1 text-center text-slate-500">Questions are sourced from <a class="underline" href="https://satsuitequestionbank.collegeboard.org/" target="_blank">College Board SAT Question Bank</a></div>
 
 <script>
-    // TODO save bandwith
+    // TODO save bandwidth
     let categories = {{categories | tojson | safe}};
 </script>
 

@@ -139,7 +139,7 @@
                     {% if question.content.answer.choices %}
                     	<span>{{ question.content.answer.correct_choice | upper }}</span>
                     {% endif %}
-                    {% if question.content.answer.choicess %}
+                    {% if question.content.answer.choices %}
                     	<span>{{ question.content.answer.correct_answer | join(",&nbsp; ") | safe }}</span>
                     {% endif %}
                 {% endif %}
