@@ -5,10 +5,23 @@ from typing import List, Tuple
 from flask import Flask, render_template, redirect, request
 import json
 from pathlib import Path
+
+import environ
 from diskcache import Index
 
 import core
 from core import get_categories, get_questions_id, get_questions_count
+
+env = environ.Env()
+
+BASE_DIR = Path(__file__).resolve(strict=True).parent
+
+READ_DOT_ENV_FILE = env.bool("READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(str(BASE_DIR / ".env"))
+
+IS_BLACKOUT = env.bool('IS_BLACKOUT', default=False)
 
 app = Flask(__name__)
 
@@ -140,7 +153,11 @@ def load_categories():
 
 @app.context_processor
 def utility_processor():
-    return dict(get_key=core.get_key, parse_key=core.parse_key,)
+    return dict(
+        get_key=core.get_key,
+        parse_key=core.parse_key,
+        IS_BLACKOUT=IS_BLACKOUT
+    )
 
 
 @app.route("/")

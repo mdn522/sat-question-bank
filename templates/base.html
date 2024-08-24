@@ -4,11 +4,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXP94FRL00"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'G-PXP94FRL00');
+        gtag('config', 'G-PXP94FRL00');
     </script>
 
     <meta charset="UTF-8">
@@ -17,10 +17,14 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-
+    {% if not IS_BLACKOUT %}
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    {% else %}
+        <script defer src="{{ url_for('static', filename='cdn/alpine.3.x.x.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='cdn/tailwind_3.4.5.min.js') }}"></script>
+    {% endif %}
     <style>
         img {
             display: inline-block !important;
@@ -33,9 +37,16 @@
 
 </head>
 <body class="">
+
+    {% include 'includes/header.html' %}
+
     {% block content %}{% endblock %}
 
-    <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    {% if not IS_BLACKOUT %}
+        <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    {% else %}
+        <script type="text/javascript" id="MathJax-script" async src="{{ url_for('static', filename='cdn/tex-mml-chtml.3.2.2.min.js') }}"></script>
+    {% endif %}
     <script>
         window.MathJax = {
             startup: {
