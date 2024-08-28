@@ -5,7 +5,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PXP94FRL00"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-PXP94FRL00');
@@ -14,7 +18,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
 
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {% if not IS_BLACKOUT %}
@@ -38,27 +43,29 @@
 </head>
 <body class="">
 
-    {% include 'includes/header.html' %}
+{% include 'includes/header.html' %}
 
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
-    {% if not IS_BLACKOUT %}
-        <script type="text/javascript" id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
-    {% else %}
-        <script type="text/javascript" id="MathJax-script" async src="{{ url_for('static', filename='cdn/tex-mml-chtml.3.2.2.min.js') }}"></script>
-    {% endif %}
-    <script>
-        window.MathJax = {
-            startup: {
-                ready: () => {
-                    console.log('MathJax is loaded, but not yet initialized');
-                    MathJax.startup.defaultReady();
-                    MathJax.typeset();
-                    document.getElementById('mathjax-wait').classList.remove('hidden');
-                    console.log('MathJax is initialized, and the initial typeset is queued');
-                }
+{% if not IS_BLACKOUT %}
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+{% else %}
+    <script type="text/javascript" id="MathJax-script" async
+            src="{{ url_for('static', filename='cdn/tex-mml-chtml.3.2.2.min.js') }}"></script>
+{% endif %}
+<script>
+    window.MathJax = {
+        startup: {
+            ready: () => {
+                console.log('MathJax is loaded, but not yet initialized');
+                MathJax.startup.defaultReady();
+                MathJax.typeset();
+                document.getElementById('mathjax-wait').classList.remove('hidden');
+                console.log('MathJax is initialized, and the initial typeset is queued');
             }
-        };
-    </script>
+        }
+    };
+</script>
 </body>
 </html>
